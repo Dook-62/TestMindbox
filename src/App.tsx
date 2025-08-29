@@ -1,4 +1,4 @@
-import './App.css'
+import "./App.css";
 import {useState} from "react";
 import type {Task} from "./types/Task.ts";
 import {getActiveTasks, getCompletedTasks} from "./utils/taskUtils.ts";
