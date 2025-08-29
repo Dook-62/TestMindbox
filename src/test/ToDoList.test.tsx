@@ -1,7 +1,7 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
-import { ToDoList } from '../to-do';
+import App from '../App';
 
 // Мокаем компоненты для изоляции тестов
 vi.mock('../components/AddTaskForm', () => ({
@@ -107,9 +107,9 @@ vi.mock('../components/CompletedTaskList', () => ({
   )
 }));
 
-describe('ToDoList', () => {
+describe('App', () => {
   it('должен отображать пустые списки при запуске', () => {
-    render(<ToDoList />);
+    render(<App />);
     
     expect(screen.getByText('Все задачи')).toBeInTheDocument();
     expect(screen.getByText('В работе')).toBeInTheDocument();
@@ -121,7 +121,7 @@ describe('ToDoList', () => {
   });
 
   it('должен показывать правильные счётчики при запуске', () => {
-    render(<ToDoList />);
+    render(<App />);
     
     expect(screen.getByTestId('counter-все-задачи')).toHaveTextContent('Всего задач: 0');
     expect(screen.getByTestId('counter-в-работе')).toHaveTextContent('Активных задач: 0');
@@ -130,7 +130,7 @@ describe('ToDoList', () => {
 
   it('должен добавлять новую задачу', async () => {
     const user = userEvent.setup();
-    render(<ToDoList />);
+    render(<App />);
     
     const input = screen.getByTestId('task-input');
     const button = screen.getByTestId('add-task-button');
@@ -157,7 +157,7 @@ describe('ToDoList', () => {
 
   it('должен отмечать задачу как выполненную', async () => {
     const user = userEvent.setup();
-    render(<ToDoList />);
+    render(<App />);
     
     // Сначала добавляем задачу
     const input = screen.getByTestId('task-input');
@@ -196,7 +196,7 @@ describe('ToDoList', () => {
 
   it('должен очищать выполненные задачи', async () => {
     const user = userEvent.setup();
-    render(<ToDoList />);
+    render(<App />);
     
     // Добавляем задачу
     const input = screen.getByTestId('task-input');
@@ -243,7 +243,7 @@ describe('ToDoList', () => {
 
   it('не должен добавлять пустые задачи', async () => {
     const user = userEvent.setup();
-    render(<ToDoList />);
+    render(<App />);
     
     const button = screen.getByTestId('add-task-button');
     
